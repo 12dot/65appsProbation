@@ -27,8 +27,7 @@ class ViewController: UIViewController {
     
     @IBAction func transferURLButton(_ sender: Any) {
         let buttonIdentifier = "2but"
-        //let searchQuerry = "https://www.wikihow.com/Start-Learning-Computer-Programming"
-        let searchQuerry = "https://sun1-91.userapi.com/pLlfDuGNtH-AgtNmpVihUN1tokjQLq-FoIDB9w/qE1jrkVpoAI.jpg"
+        let searchQuerry = "https://www.wikihow.com/Start-Learning-Computer-Programming"
         let url = URL(string: path+buttonIdentifier+searchQuerry)
         openRecieverApp(url: url!)
         
@@ -44,6 +43,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        styleButton(button: textButton)
+        styleButton(button: imageButton)
+        styleButton(button: urlButton)
         // Do any additional setup after loading the view.
     }
 
@@ -61,6 +63,14 @@ class ViewController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func styleButton(button : UIButton){
+        
+        button.layer.cornerRadius = 25
+        button.tintColor = .white
+        button.backgroundColor = .darkGray
+        
     }
     
     

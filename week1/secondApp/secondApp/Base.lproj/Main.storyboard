@@ -15,34 +15,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wmm-n9-mWx">
-                                <rect key="frame" x="0.0" y="244" width="414" height="180"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wmm-n9-mWx">
+                                <rect key="frame" x="0.0" y="244" width="414" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5D-lI-PJk">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="2wB-YP-ofk"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                         <state key="normal" title="Transfer text"/>
                                         <connections>
                                             <action selector="transferTextButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GFd-9i-UEn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehK-zI-IOM">
-                                        <rect key="frame" x="0.0" y="60" width="414" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="Bce-jS-mGv"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="30"/>
                                         <state key="normal" title="Transfer URL"/>
                                         <connections>
                                             <action selector="transferURLButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2jS-hT-0JI"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKj-wF-2q9">
-                                        <rect key="frame" x="0.0" y="120" width="414" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="oDA-Hc-wBP"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="80" width="414" height="30"/>
                                         <state key="normal" title="Tranfer Image"/>
                                         <connections>
                                             <action selector="transferImageButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WVj-Ej-l1G"/>
