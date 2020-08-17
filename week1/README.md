@@ -1,4 +1,4 @@
-# Testovoe iOS Mireshkin
+# StaZhirovka iOS Mireshkin
 
 A description of this package.\
 
