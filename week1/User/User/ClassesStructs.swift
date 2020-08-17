@@ -91,13 +91,18 @@ class UserComposer {
                 }
                 consoleIO.printUsage()
             }else{
-                let counter = Int(CommandLine.arguments[2]) ?? 0
-                if counter <= 0 && counter > userArray.count {
-                    consoleIO.writeMessage("Invalid number")
+                if userArray.count == 0 {
+                    consoleIO.writeMessage("There are no users")
                     consoleIO.printUsage()
-                }else{
-                    userArray.remove(at: counter-1)
-                    consoleIO.writeMessage("User was successfully deleted")
+                } else {
+                    let counter = Int(CommandLine.arguments[2]) ?? 0
+                    if counter <= 0 && counter > userArray.count {
+                        consoleIO.writeMessage("Invalid number")
+                        consoleIO.printUsage()
+                    }else{
+                        userArray.remove(at: counter-1)
+                        consoleIO.writeMessage("User was successfully deleted")
+                    }
                 }
             }
         case .help:
@@ -141,32 +146,36 @@ class UserComposer {
                 }
             case .delete:
                 
-                consoleIO.writeMessage("You can delete by indexes -i or by concurence -c.")
-                let deleting = consoleIO.getInput()
-                switch deleting {
-                case "c":
-                    consoleIO.writeMessage("Write string of name or surname or phonenumber:")
-                    let stringToDelete = consoleIO.getInput()
-                    userArray = userArray.filter(){$0.name != stringToDelete && $0.surname != stringToDelete && $0.phone != stringToDelete}
-                    consoleIO.writeMessage("Success")
-                case "i":
-                    consoleIO.writeMessage("Write user's number from: ")
-                    let counterFrom = Int(consoleIO.getInput()) ?? 0
-                    consoleIO.writeMessage("Write user's number to: ")
-                    var counterTo = Int(consoleIO.getInput()) ?? 0
-                    if counterFrom <= 0 && counterFrom > userArray.count  && counterTo < counterFrom && counterTo <= 0, counterTo > userArray.count {
-                        consoleIO.writeMessage("Invalid number")
-                        consoleIO.printUsage()
-                    }else{
-                        while counterTo >= counterFrom{
-                            userArray.remove(at: counterTo-1)
-                            consoleIO.writeMessage("User was successfully deleted")
-                            counterTo = counterTo - 1
+                if userArray.count == 0 {
+                    consoleIO.writeMessage("No elements in array.")
+                    consoleIO.printUsage()
+                } else {
+                    consoleIO.writeMessage("You can delete by indexes -i or by concurence -c.")
+                    let deleting = consoleIO.getInput()
+                    switch deleting {
+                    case "c":
+                        consoleIO.writeMessage("Write string of name or surname or phonenumber:")
+                        let stringToDelete = consoleIO.getInput()
+                        userArray = userArray.filter(){$0.name != stringToDelete && $0.surname != stringToDelete && $0.phone != stringToDelete}
+                        consoleIO.writeMessage("Success")
+                    case "i":
+                        consoleIO.writeMessage("Write user's number from: ")
+                        let counterFrom = Int(consoleIO.getInput()) ?? 0
+                        consoleIO.writeMessage("Write user's number to: ")
+                        var counterTo = Int(consoleIO.getInput()) ?? 0
+                        if counterFrom <= 0 && counterFrom > userArray.count  && counterTo < counterFrom && counterTo <= 0, counterTo > userArray.count {
+                            consoleIO.writeMessage("Invalid number")
+                            consoleIO.printUsage()
+                        }else{
+                            while counterTo >= counterFrom{
+                                userArray.remove(at: counterTo-1)
+                                consoleIO.writeMessage("User was successfully deleted")
+                                counterTo = counterTo - 1
+                            }
                         }
+                    default:
+                        consoleIO.writeMessage("Unknown option \(value)", to: .error)
                     }
-                
-                default:
-                    consoleIO.writeMessage("Unknown option \(value)", to: .error)
                 }
             case .quit:
                 isEnding = true

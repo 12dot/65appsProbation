@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     @IBAction func transferURLButton(_ sender: Any) {
         let buttonIdentifier = "2but"
         let searchQuerry = "https://www.wikihow.com/Start-Learning-Computer-Programming"
+        var component = URLComponents(string: searchQuerry)
+        //component?.queryItems?.append
         let url = URL(string: path+buttonIdentifier+searchQuerry)
         openRecieverApp(url: url!)
         
