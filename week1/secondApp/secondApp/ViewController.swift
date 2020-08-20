@@ -14,31 +14,41 @@ class ViewController: UIViewController {
     @IBOutlet weak var urlButton: UIButton!
     @IBOutlet weak var imageButton: UIButton!
     
-    let path = "receiverApp://"
+    let sheme = "receiverApp://"
 
     
     @IBAction func transferTextButton(_ sender: Any) {
-        let buttonIdentifier = "1but"
-        let searchQuerry = "Great! It is working".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-        let url = URL(string: path+buttonIdentifier+searchQuerry)
+        
+        
+        let queryItems = [URLQueryItem(name: "identifier", value: "1"), URLQueryItem(name: "text", value: "Great!. It's working")]
+        var urlComps = URLComponents(string: sheme)
+        urlComps?.queryItems = queryItems
+        let url = urlComps?.url
         openRecieverApp(url: url!)
+        
+        
+        
         
     }
     
     @IBAction func transferURLButton(_ sender: Any) {
-        let buttonIdentifier = "2but"
-        let searchQuerry = "https://www.wikihow.com/Start-Learning-Computer-Programming"
-        var component = URLComponents(string: searchQuerry)
-        //component?.queryItems?.append
-        let url = URL(string: path+buttonIdentifier+searchQuerry)
+        
+        
+        let queryItems = [URLQueryItem(name: "identifier", value: "2"), URLQueryItem(name: "site", value: "https://www.wikihow.com/Start-Learning-Computer-Programming")]
+        var urlComps = URLComponents(string: sheme)
+        urlComps?.queryItems = queryItems
+        let url = urlComps?.url
         openRecieverApp(url: url!)
+        
         
         
     }
     
     @IBAction func transferImageButton(_ sender: Any) {
-        let buttonIdentifier = "3but"
-        let url = URL(string: path+buttonIdentifier)
+        let queryItems = [URLQueryItem(name: "identifier", value: "3")]
+        var urlComps = URLComponents(string: sheme)
+        urlComps?.queryItems = queryItems
+        let url = urlComps?.url
         openRecieverApp(url: url!)
                
     }

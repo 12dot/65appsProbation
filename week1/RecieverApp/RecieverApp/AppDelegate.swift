@@ -22,28 +22,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
+        func getQueryStringParameter(url: String, param: String) -> String? {
+          guard let url = URLComponents(string: url) else { return nil }
+          return url.queryItems?.first(where: { $0.name == param })?.value
+        }
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.window!.rootViewController as! ViewController
         vc.hideAllElements()
-        let text = url.host
         
-        if text?.prefix(4) == "1but"{
+        let identifier = getQueryStringParameter(url: "\(url)", param: "identifier")
+    
+        if identifier == "1"{
             
-            var text = url.host?.removingPercentEncoding
-            text?.removeFirst(4)
+            let text = getQueryStringParameter(url: "\(url)", param: "text")
             vc.textLabel.isHidden = false
             vc.textLabel.text = text
             
-        } else if text?.prefix(4) == "2but" {
+        } else if identifier == "2"{
     
             vc.webView.isHidden = false
-            var linkURL = url.host!+":"+url.path
-            linkURL.removeFirst(4)
-            let link = URL(string: linkURL)
+            let site = getQueryStringParameter(url: "\(url)", param: "site")
+            let link = URL(string: site!)
             let request = URLRequest(url: link!)
             vc.webView.load(request)
 
-        } else if text?.prefix(4) == "3but" {
+        } else if identifier == "3" {
             
             vc.imageView.isHidden = false
             vc.imageView.image = UIImage(named: "kit")
