@@ -24,8 +24,9 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
             
             let selectedRow = pickerView.selectedRow(inComponent: 0)
-            let selectedTag = self.tags[selectedRow]
-            self.requestQuestion(for: selectedTag)
+            self.currentTag = self.tags[selectedRow]
+            self.navigationItem.title = self.currentTag
+            self.getData()
         
         }))
         self.present(alert,animated: true, completion: nil )
@@ -35,9 +36,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
-    private lazy var questions = [Question]()
+    private var networkWorker = NetworkService()
     private lazy var tags = ["Swift" , "Objective-C" , "iOS" , "Xcode", "Cocoa-touch", "Iphone"]
+    var currentTag = String()
+
     
     private struct Question {
         let questionName : String
@@ -52,73 +54,33 @@ class ViewController: UIViewController {
         //dataSourses and delegates
         tableView.dataSource = self
         tableView.delegate = self
-        //pickerView.delegate = self
-        //pickerView.dataSource = self
         
-        //pickerView.isHidden = true
+        
         activityIndicator.hidesWhenStopped = true
         
-        requestQuestion(for: tags[0])
+        currentTag = tags[0]
         
+        self.navigationItem.title = currentTag
+        
+        self.getData()
 
         // Do any additional setup after loading the view.
     }
     
     
-    private func requestQuestion(for tag : String){
-        activityIndicator.startAnimating()
-        guard let url = URL(string: "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=50&order=desc&sort=creation&tagged=\(tag)&site=stackoverflow") else {return}
-        let dataTask = URLSession.shared.dataTask(with: url){ (data, response, error) in
+    private func getData(){
+        networkWorker.getData(request: URLRequest(url: URL(string : "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=50&order=desc&sort=creation&tagged=\(currentTag)&site=stackoverflow")!), completion: { result in
             
-            if let data = data,
-                (response as? HTTPURLResponse)?.statusCode == 200,
-                error == nil{
-                self.parseQuestion(from: data)
-                DispatchQueue.main.sync {
-                    self.navigationItem.title = "\(tag)"
-                }
-            } else {
-                    print("Error getting data")
-            
+            switch result{
+            case .success(let data):
+                self.networkWorker.parseQuestion(from: data, tableview: self.tableView)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
-        }
-        dataTask.resume()
+            
+        })
     }
     
-    
-    private func parseQuestion(from data : Data){
-        do {
-            let jsonObject = try JSONSerialization.jsonObject(with: data)
-            //print(jsonObject)
-            guard let json = jsonObject as? [String:Any] else {
-                print("Invalid json")
-                return
-            }
-            
-            guard let jsonArray = json["items"] as? [[String:Any]] else {return print("JSON has no any items")}
-            questions.removeAll()
-            
-            for element in jsonArray.reversed(){
-                guard
-                    let dateUNIX = element["last_activity_date"] as? Double,
-                    let title = element["title"] as? String,
-                    let answers = element["answer_count"] as? Int,
-                    let owner = element["owner"] as? [String:Any],
-                    let ownerName = owner["display_name"] as? String else {return print("JSON has no data")}
-                
-                let date = NSDate(timeIntervalSince1970: dateUNIX)
-                questions.append(Question(questionName: title, ownerName: ownerName, date: date, answersCount: answers))
-                
-            }
-            
-            DispatchQueue.main.sync { [weak self] in
-                self?.reloadAndDisplay()
-            }
-            
-        } catch {
-            print("error")
-        }
-    }
     
     private func reloadAndDisplay() {
         activityIndicator.stopAnimating()
@@ -153,7 +115,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return questions.count
+        return networkWorker.questions.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -163,12 +125,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        cell.questionLabel.text = questions[indexPath.row].questionName
-        cell.answerLabel.text = String(questions[indexPath.row].answersCount)
-        cell.authorLabel.text = questions[indexPath.row].ownerName
+        cell.questionLabel.text = networkWorker.questions[indexPath.row].questionName
+        cell.answerLabel.text = String(networkWorker.questions[indexPath.row].answersCount)
+        cell.authorLabel.text = networkWorker.questions[indexPath.row].ownerName
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-YY, h:mm:ss"
-        let formattedDate = formatter.string(from: questions[indexPath.row].date as Date)
+        let formattedDate = formatter.string(from: networkWorker.questions[indexPath.row].date as Date)
         cell.dateLabel.text = formattedDate
         // Configure the cell...
 

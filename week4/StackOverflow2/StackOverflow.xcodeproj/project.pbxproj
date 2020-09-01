@@ -14,6 +14,7 @@
 		095FE47D24F858C200D0AC38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 095FE47B24F858C200D0AC38 /* LaunchScreen.storyboard */; };
 		095FE48724F85B8300D0AC38 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095FE48624F85B8300D0AC38 /* TableViewCell.swift */; };
 		0977925924FD8D8800B53F71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977925824FD8D8800B53F71 /* ViewController.swift */; };
+		0977925D24FE750400B53F71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977925C24FE750400B53F71 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		095FE47E24F858C200D0AC38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		095FE48624F85B8300D0AC38 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0977925824FD8D8800B53F71 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0977925C24FE750400B53F71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				095FE47024F858C200D0AC38 /* AppDelegate.swift */,
 				095FE47224F858C200D0AC38 /* SceneDelegate.swift */,
 				0977925824FD8D8800B53F71 /* ViewController.swift */,
+				0977925C24FE750400B53F71 /* NetworkService.swift */,
 				095FE48624F85B8300D0AC38 /* TableViewCell.swift */,
 				095FE47624F858C200D0AC38 /* Main.storyboard */,
 				095FE47924F858C200D0AC38 /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0977925D24FE750400B53F71 /* NetworkService.swift in Sources */,
 				0977925924FD8D8800B53F71 /* ViewController.swift in Sources */,
 				095FE47124F858C200D0AC38 /* AppDelegate.swift in Sources */,
 				095FE48724F85B8300D0AC38 /* TableViewCell.swift in Sources */,
