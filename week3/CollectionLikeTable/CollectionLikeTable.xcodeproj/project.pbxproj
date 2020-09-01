@@ -19,8 +19,8 @@
 		095FE45524F7E62E00D0AC38 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095FE45424F7E62E00D0AC38 /* CustomLayout.swift */; };
 		095FE46024F807ED00D0AC38 /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 095FE45E24F807ED00D0AC38 /* SectionHeader.xib */; };
 		095FE46124F807ED00D0AC38 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095FE45F24F807ED00D0AC38 /* SectionHeader.swift */; };
-		095FE46324F8092600D0AC38 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 095FE46224F8092600D0AC38 /* CollectionViewCell.xib */; };
 		096C08F224F47026006D4755 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C08F024F47026006D4755 /* CollectionViewCell.swift */; };
+		0977925B24FE5E7200B53F71 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0977925A24FE5E7200B53F71 /* CollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +38,8 @@
 		095FE45424F7E62E00D0AC38 /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		095FE45E24F807ED00D0AC38 /* SectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
 		095FE45F24F807ED00D0AC38 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
-		095FE46224F8092600D0AC38 /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CollectionViewCell.xib; path = ../../../StickyHeadersCollectionView/StickyHeaders/CollectionViewCell.xib; sourceTree = "<group>"; };
 		096C08F024F47026006D4755 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		0977925A24FE5E7200B53F71 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 				0932799524F40C6D008E6620 /* CollectionViewController.swift */,
 				095FE45424F7E62E00D0AC38 /* CustomLayout.swift */,
 				096C08F024F47026006D4755 /* CollectionViewCell.swift */,
-				095FE46224F8092600D0AC38 /* CollectionViewCell.xib */,
+				0977925A24FE5E7200B53F71 /* CollectionViewCell.xib */,
 				0932799724F40C7F008E6620 /* TableViewController.swift */,
 				095FE44E24F54D1800D0AC38 /* TableViewCell.swift */,
 				0932798A24F40C38008E6620 /* Assets.xcassets */,
@@ -150,7 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0932798E24F40C38008E6620 /* LaunchScreen.storyboard in Resources */,
-				095FE46324F8092600D0AC38 /* CollectionViewCell.xib in Resources */,
+				0977925B24FE5E7200B53F71 /* CollectionViewCell.xib in Resources */,
 				0932798B24F40C38008E6620 /* Assets.xcassets in Resources */,
 				095FE46024F807ED00D0AC38 /* SectionHeader.xib in Resources */,
 				0932798924F40C38008E6620 /* Main.storyboard in Resources */,
@@ -248,6 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = /Volumes/work/Swift/Stazhirovka/week3/CollectionLikeTable/CollectionLikeTable;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -302,6 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = /Volumes/work/Swift/Stazhirovka/week3/CollectionLikeTable/CollectionLikeTable;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -317,7 +319,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CollectionLikeTable/Info.plist;
+				INFOPLIST_FILE = "";
+				"INFOPLIST_FILE[sdk=*]" = CollectionLikeTable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +337,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CollectionLikeTable/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = CollectionLikeTable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
