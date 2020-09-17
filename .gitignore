@@ -1,0 +1,20 @@
+.DS_Store
+.*.swp
+*.sublime-workspace
+*.sublime-project
+
+syntax: glob
+*.xcuserstate
+
+Pods
+*.xcscmblueprint
+*.xcbkptlist
+public/
+.idea
+.idea/
+fastlane_build/
+fastlane/report.xml
+fastlane/README.md
+screenshots
+IDEWorkspaceChecks.plist
+xcschememanagement.plist
