@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+// MARK: - Structs
 struct Question {
     let questionName : String
     let ownerName : String
@@ -30,11 +30,12 @@ var currentQuestion : Int = 0
 
 class NetworkService : NSObject, URLSessionDataDelegate {
     
-    
+    // MARK: - Properties
     public var questions = [Question]()
     public var answers = [Answer]()
     var dataSaver = DataSaver()
     
+    // MARK: - Public methods
     public func getData(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void){
         
         let dataFromFile = dataSaver.readDataFromFile(filename: currentTag)
@@ -134,8 +135,6 @@ class NetworkService : NSObject, URLSessionDataDelegate {
             print("error")
         }
     }
-    
-    
     
 }
 

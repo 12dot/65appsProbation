@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+// MARK: - Delegate protocol for containe VC
 protocol TableViewControllerDelegatePush {
     func pushAnswersData()
 }
@@ -16,18 +18,16 @@ protocol TableViewControllerDelegatePush {
 
 class TableViewController: UITableViewController {
     
+    // MARK: - Declaration properties
     public var networkService = NetworkService()
     var delegateNew : TableViewControllerDelegatePush?
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
         self.tableView.rowHeight = UITableView.automaticDimension
-        
-        
-        //self.getData()
     }
     
+    // MARK: - Public methods
     public func getQuestionsData(activityIndicator: UIActivityIndicatorView){
         activityIndicator.startAnimating()
         networkService.getData(request: URLRequest(url: URL(string : "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=50&order=desc&sort=creation&tagged=\(currentTag)&site=stackoverflow")!), completion: { result in
@@ -43,13 +43,11 @@ class TableViewController: UITableViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             }
-            
         })
     }
     
  
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -64,7 +62,6 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        
         cell.questionLabel.text = networkService.questions[indexPath.row].questionName
         cell.answerLabel.text = String(networkService.questions[indexPath.row].answersCount)
         cell.authorLabel.text = networkService.questions[indexPath.row].ownerName
@@ -77,14 +74,11 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-
-    
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return false
     }
     
+    // MARK: - Table view delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentQuestion = indexPath.row
         delegateNew?.pushAnswersData()

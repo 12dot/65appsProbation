@@ -10,27 +10,28 @@ import UIKit
 
 class AnswersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
+    // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBAction func backButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Properties
     var networkService : NetworkService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         tableView.estimatedRowHeight = 1.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.delegate = self
         getAnswersData()
-
     }
     
-    public func getAnswersData() {
+    // MARK: - Private methods
+    private func getAnswersData() {
         guard let questionId = networkService?.questions[currentQuestion].questionId else {
             return print("no value")
         }
@@ -39,26 +40,19 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
                      switch result{
                          
                      case .success(let data):
-                       DispatchQueue.main.sync {
-                        self.networkService?.parseAnswers(from: data, tableview: self.tableView)
-                               //print(self.networkService.answers)
-                       }
-                         
-                         
+                        DispatchQueue.main.sync {
+                            self.networkService?.parseAnswers(from: data, tableview: self.tableView)
+                        }
                      case .failure(let error):
                            print(error.localizedDescription)
-                         
                    }
                })
-           
        }
     
     
+    // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                
         return (networkService?.answers.count)! + 1
-        
-        
     }
     
     

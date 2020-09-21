@@ -10,7 +10,6 @@
 		0934F906250B9A5B00BF3840 /* DataSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934F905250B9A5B00BF3840 /* DataSaver.swift */; };
 		094414FC250E1AA200B10D96 /* AnswersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094414FB250E1AA200B10D96 /* AnswersViewController.swift */; };
 		094414FE250E1C2700B10D96 /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094414FD250E1C2700B10D96 /* AnswerTableViewCell.swift */; };
-		09441503250F6C7100B10D96 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09441501250F6C7100B10D96 /* Model.xcdatamodeld */; };
 		0962A9C925025B90005DA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962A9C825025B90005DA1CF /* AppDelegate.swift */; };
 		0962A9CB25025B90005DA1CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962A9CA25025B90005DA1CF /* SceneDelegate.swift */; };
 		0962A9CD25025B90005DA1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962A9CC25025B90005DA1CF /* ViewController.swift */; };
@@ -22,13 +21,13 @@
 		0962A9E325028BB4005DA1CF /* CurtainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962A9E225028BB4005DA1CF /* CurtainViewController.swift */; };
 		0962A9E525028BCE005DA1CF /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962A9E425028BCE005DA1CF /* TagTableViewCell.swift */; };
 		0962A9E725029436005DA1CF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962A9E625029436005DA1CF /* NetworkService.swift */; };
+		09DC7E972514FCBE00B61665 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09DC7E952514FCBE00B61665 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0934F905250B9A5B00BF3840 /* DataSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSaver.swift; sourceTree = "<group>"; };
 		094414FB250E1AA200B10D96 /* AnswersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersViewController.swift; sourceTree = "<group>"; };
 		094414FD250E1C2700B10D96 /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
-		09441502250F6C7100B10D96 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		0962A9C525025B90005DA1CF /* StackOverflow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0962A9C825025B90005DA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0962A9CA25025B90005DA1CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		0962A9E225028BB4005DA1CF /* CurtainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurtainViewController.swift; sourceTree = "<group>"; };
 		0962A9E425028BCE005DA1CF /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
 		0962A9E625029436005DA1CF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		09DC7E962514FCBE00B61665 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +76,11 @@
 			children = (
 				0962A9C825025B90005DA1CF /* AppDelegate.swift */,
 				0962A9CA25025B90005DA1CF /* SceneDelegate.swift */,
-				09441501250F6C7100B10D96 /* Model.xcdatamodeld */,
 				0962A9E82503BC43005DA1CF /* Controllers */,
 				0962A9E92503BC53005DA1CF /* Cells */,
 				0962A9CE25025B90005DA1CF /* Main.storyboard */,
 				0934F905250B9A5B00BF3840 /* DataSaver.swift */,
+				09DC7E952514FCBE00B61665 /* Model.xcdatamodeld */,
 				0962A9E625029436005DA1CF /* NetworkService.swift */,
 				0962A9D125025B92005DA1CF /* Assets.xcassets */,
 				0962A9D325025B92005DA1CF /* LaunchScreen.storyboard */,
@@ -192,7 +192,7 @@
 				0962A9DF25025F48005DA1CF /* TableViewController.swift in Sources */,
 				094414FE250E1C2700B10D96 /* AnswerTableViewCell.swift in Sources */,
 				0962A9CB25025B90005DA1CF /* SceneDelegate.swift in Sources */,
-				09441503250F6C7100B10D96 /* Model.xcdatamodeld in Sources */,
+				09DC7E972514FCBE00B61665 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,12 +390,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		09441501250F6C7100B10D96 /* Model.xcdatamodeld */ = {
+		09DC7E952514FCBE00B61665 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				09441502250F6C7100B10D96 /* Model.xcdatamodel */,
+				09DC7E962514FCBE00B61665 /* Model.xcdatamodel */,
 			);
-			currentVersion = 09441502250F6C7100B10D96 /* Model.xcdatamodel */;
+			currentVersion = 09DC7E962514FCBE00B61665 /* Model.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

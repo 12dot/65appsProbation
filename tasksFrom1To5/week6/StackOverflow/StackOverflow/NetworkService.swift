@@ -10,19 +10,6 @@ import Foundation
 import UIKit
 
 
-struct Question {
-    let questionName : String
-    let ownerName : String
-    let date : NSDate
-    let answersCount : Int
-    let questionId : Int
-}
-
-struct Answer {
-    let ownerName : String
-    let answerBody: String
-}
-
 let tags = ["Swift" , "Objective-C" , "iOS" , "Xcode", "Cocoa-touch", "Iphone"]
 var currentTag = tags[0]
 var currentQuestion : Int = 0
@@ -30,11 +17,12 @@ var currentQuestion : Int = 0
 
 class NetworkService : NSObject, URLSessionDataDelegate {
     
-    
+    // MARK: - Properties
     public var questions = [Question]()
     public var answers = [Answer]()
     var dataSaver = DataSaver()
     
+    // MARK: - Public methods
     public func getData(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void){
         
         let dataFromFile = dataSaver.readDataFromFile(filename: currentTag)
@@ -134,8 +122,6 @@ class NetworkService : NSObject, URLSessionDataDelegate {
             print("error")
         }
     }
-    
-    
     
 }
 

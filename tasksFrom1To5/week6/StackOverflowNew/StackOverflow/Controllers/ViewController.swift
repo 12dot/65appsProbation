@@ -8,16 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController, CurtainViewControllerDelegate, TableViewControllerDelegatePush {
+class ViewController: UIViewController, CurtainViewControllerDelegate, TableViewControllerDelegatePush{
     
     // MARK: - VCs to get them from class
     var tableViewController =  TableViewController()
-    var menuViewController = UIViewController()
+    var menuViewController = CurtainViewController()
     var answerTableVC = AnswersViewController()
     
-    // MARK: - Variables
+    // MARK: - Consts fot curtain
     private let animationDuration = 0.3
-
+    let middlePostion : CGFloat = -100
+    let leftPosition : CGFloat = -250
+    let rightPosition: CGFloat = 0
+    let fingerRightPostion : CGFloat = 250
+    let fingerOutOfRange : CGFloat = 30
+    
+    
     // MARK: - Outlets
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableViewContentView: UIView!
@@ -26,13 +32,6 @@ class ViewController: UIViewController, CurtainViewControllerDelegate, TableView
     
     // MARK: - Curtain moving
     @IBAction func panDidAction(_ sender: UIPanGestureRecognizer) {
-
-        // MARK: - Variables
-        let middlePostion : CGFloat = -100
-        let leftPosition : CGFloat = -250
-        let rightPosition: CGFloat = 0
-        let fingerRightPostion : CGFloat = 250
-        let fingerOutOfRange : CGFloat = 30
         
          if sender.state == .ended{
             if sideConstrait.constant < middlePostion{
@@ -60,11 +59,19 @@ class ViewController: UIViewController, CurtainViewControllerDelegate, TableView
     
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         curtainConfigutaion()
         activityIndicatorConfiguration()
-        tableViewController.getQuestionsData(activityIndicator: activityIndicator)
+        
+        activityIndicator.startAnimating()
+        NetworkService.getQuestionsFromService(){
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.tableViewController.tableView.reloadData()
+            }
+        }
     }
     
     // MARK: - Configurations
@@ -76,10 +83,15 @@ class ViewController: UIViewController, CurtainViewControllerDelegate, TableView
     }
     
     // MARK: - Delegates methods from VCs
-    func reloadData() {
+    func reloadQuestionsData() {
         activityIndicator.startAnimating()
-        tableViewController.getQuestionsData(activityIndicator: activityIndicator)
-        sideConstrait.constant = -250
+        NetworkService.getQuestionsFromService(){
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.tableViewController.tableView.reloadData()
+            }
+        }
+        sideConstrait.constant = leftPosition
         UIView.animate(withDuration: animationDuration) {
             self.view.layoutIfNeeded()
         }
@@ -89,36 +101,36 @@ class ViewController: UIViewController, CurtainViewControllerDelegate, TableView
         performSegue(withIdentifier: "toAnswerVC", sender: self)
     }
     
-    // MARK: - get access to VCs
+    // MARK: - Access to VCs by segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "toAnswerVC"{
-            let navigationVC = segue.destination as! UINavigationController
-            answerTableVC = navigationVC.viewControllers.first as! AnswersViewController
-            answerTableVC.networkService = tableViewController.networkService
-        }
-        if segue.identifier == "toTableVC" {
+        
+        
+        switch segue.identifier {
+        case TableViewController.identifierFromContainer:
             let navigationVC = segue.destination as! UINavigationController
             tableViewController = navigationVC.viewControllers.first as! TableViewController
             tableViewController.delegateNew = self
-        }
-        if segue.destination is CurtainViewController {
+        case AnswersViewController.identifierFromContainer:
+            let navigationVC = segue.destination as! UINavigationController
+            answerTableVC = navigationVC.viewControllers.first as! AnswersViewController
+        case CurtainViewController.identifierFromContainer:
             let menuViewControllerSeag = segue.destination as! CurtainViewController
             menuViewControllerSeag.delegate = self
             menuViewController = menuViewControllerSeag
+        default:
+            print("Error")
         }
-       
     }
     
     // MARK: - Shaking effect
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if sideConstrait.constant == -250{
-            sideConstrait.constant = 0
+        if sideConstrait.constant == leftPosition{
+            sideConstrait.constant = rightPosition
             UIView.animate(withDuration: animationDuration) {
                 self.view.layoutIfNeeded()
             }
-        } else if sideConstrait.constant == 0 {
-            sideConstrait.constant = -250
+        } else if sideConstrait.constant == rightPosition {
+            sideConstrait.constant = leftPosition
             UIView.animate(withDuration: animationDuration) {
                 self.view.layoutIfNeeded()
             }

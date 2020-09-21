@@ -12,11 +12,11 @@ import Foundation
 class DataSaver {
 
     // MARK: - Properties
-    let fileManager = FileManager()
-    let defaults = UserDefaults.standard
+    private static let fileManager = FileManager()
+    private static let defaults = UserDefaults.standard
       
     // MARK: - Private methods
-    private func deleteFile(filename : String) {
+    private static func deleteFile(filename : String) {
         
         do {
             guard let url = makeURL(fileName: filename) else {
@@ -30,7 +30,7 @@ class DataSaver {
         }
     }
     
-    private func makeURL(fileName: String) -> URL? {
+    private static func makeURL(fileName: String) -> URL? {
         guard let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
@@ -38,7 +38,7 @@ class DataSaver {
     }
     
     
-    private func isFileExist(filename : String, url : URL) -> Bool {
+    private static func isFileExist(filename : String, url : URL) -> Bool {
         
         let filePath = url.path
         if fileManager.fileExists(atPath: filePath) {
@@ -52,7 +52,6 @@ class DataSaver {
                     print("File deleted cas time is reached")
                     return false
                 } else {
-                    print("time normal")
                     return true
                 }
             } else {
@@ -60,13 +59,12 @@ class DataSaver {
                 return false
             }
         } else {
-            print("file not exist")
             return false
         }
     }
     
     // MARK: - Public methods
-    public func readDataFromFile(filename : String) -> Data? {
+    public static func readDataFromFile(filename : String) -> Data? {
         guard let url = makeURL(fileName: filename) else {
             print("Invalid Directory")
             return nil
@@ -79,11 +77,10 @@ class DataSaver {
                 print("Error reading: \(error)")
             }
         }
-        print("Haven't read cas not exist")
         return nil
     }
     
-    public func createFileAndSave(filename : String, data: Data){
+    public static func createFileAndSave(filename : String, data: Data){
         guard let url = makeURL(fileName: filename) else {
                    print("Invalid Directory")
                    return
@@ -95,7 +92,6 @@ class DataSaver {
         
         do{
             try data.write(to: url)
-            print("file saved")
             defaults.set(Date(), forKey: "lastUpdate")
         } catch let error as NSError {
             print("error creating: \(error)")

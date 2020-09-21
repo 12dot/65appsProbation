@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0903BA162517737C00FFA44C /* ErrorPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0903BA152517737C00FFA44C /* ErrorPresent.swift */; };
+		091F2AD72517A40F00FB1956 /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F2AD62517A40F00FB1956 /* QuestionTableViewCell.swift */; };
 		0934F906250B9A5B00BF3840 /* DataSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934F905250B9A5B00BF3840 /* DataSaver.swift */; };
 		094414FC250E1AA200B10D96 /* AnswersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094414FB250E1AA200B10D96 /* AnswersViewController.swift */; };
 		094414FE250E1C2700B10D96 /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094414FD250E1C2700B10D96 /* AnswerTableViewCell.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0903BA152517737C00FFA44C /* ErrorPresent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresent.swift; sourceTree = "<group>"; };
+		091F2AD62517A40F00FB1956 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
 		0934F905250B9A5B00BF3840 /* DataSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSaver.swift; sourceTree = "<group>"; };
 		094414FB250E1AA200B10D96 /* AnswersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersViewController.swift; sourceTree = "<group>"; };
 		094414FD250E1C2700B10D96 /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
@@ -57,6 +61,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0903BA0F2517714600FFA44C /* HelpfulService */ = {
+			isa = PBXGroup;
+			children = (
+				0934F905250B9A5B00BF3840 /* DataSaver.swift */,
+				0962A9E625029436005DA1CF /* NetworkService.swift */,
+				0903BA152517737C00FFA44C /* ErrorPresent.swift */,
+			);
+			path = HelpfulService;
+			sourceTree = "<group>";
+		};
 		0962A9BC25025B90005DA1CF = {
 			isa = PBXGroup;
 			children = (
@@ -80,10 +94,10 @@
 				0962A9CA25025B90005DA1CF /* SceneDelegate.swift */,
 				0962A9E82503BC43005DA1CF /* Controllers */,
 				0962A9E92503BC53005DA1CF /* Cells */,
-				0962A9CE25025B90005DA1CF /* Main.storyboard */,
-				0934F905250B9A5B00BF3840 /* DataSaver.swift */,
-				0962A9E625029436005DA1CF /* NetworkService.swift */,
+				09DC7E9C25152A2000B61665 /* Structs */,
+				0903BA0F2517714600FFA44C /* HelpfulService */,
 				0962A9D125025B92005DA1CF /* Assets.xcassets */,
+				0962A9CE25025B90005DA1CF /* Main.storyboard */,
 				0962A9D325025B92005DA1CF /* LaunchScreen.storyboard */,
 				0962A9D625025B92005DA1CF /* Info.plist */,
 			);
@@ -107,7 +121,7 @@
 				0962A9DC25025EAC005DA1CF /* TableViewCell.swift */,
 				094414FD250E1C2700B10D96 /* AnswerTableViewCell.swift */,
 				0962A9E425028BCE005DA1CF /* TagTableViewCell.swift */,
-				09DC7E9C25152A2000B61665 /* Structs */,
+				091F2AD62517A40F00FB1956 /* QuestionTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -148,7 +162,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = 12dot;
 				TargetAttributes = {
 					0962A9C425025B90005DA1CF = {
@@ -198,12 +212,14 @@
 				0962A9DD25025EAC005DA1CF /* TableViewCell.swift in Sources */,
 				09DC7E9B251529FB00B61665 /* AnswerStruct.swift in Sources */,
 				0962A9E725029436005DA1CF /* NetworkService.swift in Sources */,
+				091F2AD72517A40F00FB1956 /* QuestionTableViewCell.swift in Sources */,
 				094414FC250E1AA200B10D96 /* AnswersViewController.swift in Sources */,
 				0962A9C925025B90005DA1CF /* AppDelegate.swift in Sources */,
 				0962A9E525028BCE005DA1CF /* TagTableViewCell.swift in Sources */,
 				0962A9E325028BB4005DA1CF /* CurtainViewController.swift in Sources */,
 				0962A9DF25025F48005DA1CF /* TableViewController.swift in Sources */,
 				094414FE250E1C2700B10D96 /* AnswerTableViewCell.swift in Sources */,
+				0903BA162517737C00FFA44C /* ErrorPresent.swift in Sources */,
 				0962A9CB25025B90005DA1CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +272,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -316,6 +333,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

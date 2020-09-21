@@ -5,19 +5,17 @@
 //  Created by 12dot on 11.09.2020.
 //  Copyright © 2020 12dot. All rights reserved.
 //
-
 import Foundation
 import CoreData
 import UIKit
 
 class DataSaver {
 
+    // MARK: - Properties
     private var lastUpdate : Date?
-    
-    
     let fileManager = FileManager()
-    //let defaults = UserDefaults.standard
       
+    // MARK: - Private methods
     private func deleteFile(filename : String) {
         
         do {
@@ -67,6 +65,7 @@ class DataSaver {
         }
     }
     
+    // MARK: - Public properties
     public func readDataFromFile(filename : String) -> Data? {
         guard let url = makeURL(fileName: filename) else {
             print("Invalid Directory")
@@ -112,38 +111,24 @@ class DataSaver {
         }
     }
  
-    
-    
-    func createDate(){
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-
-
+    // MARK: - Core Data methods
+    private func createDate(){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return}
         let managedContext = appDelegate.persistentContainer.viewContext
-
         let lastDate = NSEntityDescription.entity(forEntityName: "LastUpdate", in: managedContext)!
-
-
         let dateLast = NSManagedObject(entity: lastDate, insertInto: managedContext)
         dateLast.setValue(Date(), forKeyPath: "lastUpdate")
-
         do {
         try managedContext.save()
-
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-        
-        
-     func retrieveDate() {
-           
+
+     private func retrieveDate() {
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-           
            let managedContext = appDelegate.persistentContainer.viewContext
-           
            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LastUpdate")
-           
            do {
                let result = try managedContext.fetch(fetchRequest)
                for data in result as! [NSManagedObject] {
@@ -151,30 +136,21 @@ class DataSaver {
                     lastUpdate = data.value(forKey: "lastUpdate") as? Date
                     return
                }
-               
            } catch {
-               
                print("Failed")
                return
            }
        }
 
-
-    func updateDate(){
-
+    private func updateDate(){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
         let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "LastUpdate")
-        
        do
         {
             let test = try managedContext.fetch(fetchRequest)
-
                 let objectUpdate = test[0] as! NSManagedObject
                 objectUpdate.setValue(Date(), forKey: "lastUpdate")
-                
                 do{
                     try managedContext.save()
                 }
@@ -189,8 +165,4 @@ class DataSaver {
         }
 
     }
-
-    
-    
-    
 }
