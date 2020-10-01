@@ -9,7 +9,7 @@
 import UIKit
 
 
-class AnswersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AnswersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ErrorPresentable {
     
     
     // MARK: - Outlets
@@ -46,10 +46,18 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Private methods
     private func getAnswers(){
         activityIndicator.startAnimating()
-        NetworkService.getAnswersFromService(){
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.tableView.reloadData()
+        NetworkService.getAnswersFromService(){ result in
+            switch result{
+            case .none:
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.tableView.reloadData()
+                }
+            case .some(let error):
+                DispatchQueue.main.sync {
+                    self.activityIndicator.stopAnimating()
+                    self.showError(error: error)
+                }
             }
         }
     }

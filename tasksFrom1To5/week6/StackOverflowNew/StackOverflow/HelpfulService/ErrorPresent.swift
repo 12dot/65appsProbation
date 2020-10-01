@@ -19,7 +19,7 @@ extension ErrorPresentable where Self: UIViewController {
         let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alertController.addAction(okAction)
-        alertController.present(self, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 
 }

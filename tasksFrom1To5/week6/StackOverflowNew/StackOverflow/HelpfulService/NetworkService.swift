@@ -20,8 +20,16 @@ class NetworkService : NSObject, URLSessionDataDelegate {
     public static var answers : [Answer] = []
     
     public static let tags = ["Swift" , "Objective-C" , "iOS" , "Xcode", "Cocoa-touch", "Iphone"]
+        
+    private enum NetworkErrors: Error {
+        case invalidURL
+        case invalidJSON
+        case invalidResponse
+        case unknownError
+    }
     
-    private class func getQuestionsData(completion: @escaping (Result<Data, Error>) -> Void){
+    private class func getQuestionsData(completion: @escaping (Result<Data, Error>) -> Void) {
+        
         let currentTag  = NetworkService.tags[tagIndex]
 
     
@@ -30,9 +38,10 @@ class NetworkService : NSObject, URLSessionDataDelegate {
             completion(.success(dataFromFile!))
         } else {
             let currentTag  = NetworkService.tags[tagIndex]
-            guard let url = URL(string: "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=50&order=desc&sort=creation&tagged=\(currentTag)&site=stackoverflow") else { return print("Wrong URL") }
+            guard let url = URL(string: "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=50&order=desc&sort=creation&tagged=\(currentTag)&site=stackoverflow") else {
+                //throw NetworkErrors.invalidURL
+                return print("Wrong URL")}
             let dataTask = URLSession.shared.dataTask(with: url){(data, response, error) in
-                
                 if let data = data,
                 (response as? HTTPURLResponse)?.statusCode == 200,
                 error == nil{
@@ -42,7 +51,6 @@ class NetworkService : NSObject, URLSessionDataDelegate {
                     guard let error = error else {
                         return print("Unknown error")
                     }
-                    print("Error getting data")
                     completion(.failure(error))
                 }
             }
@@ -50,15 +58,14 @@ class NetworkService : NSObject, URLSessionDataDelegate {
         }
     }
     
-    private class func parseQuestionsData(data : Data){
+    private class func parseQuestionsData(from data : Data) throws {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data)
             
             guard let json = jsonObject as? [String:Any] else {
-                print("Invalid json")
-                return
+                throw NetworkErrors.invalidJSON
             }
-            guard let jsonArray = json["items"] as? [[String:Any]] else {return print("JSON has no any items")}
+            guard let jsonArray = json["items"] as? [[String:Any]] else {throw NetworkErrors.invalidJSON}
             NetworkService.questions.removeAll()
             
             for element in jsonArray.reversed(){
@@ -69,14 +76,13 @@ class NetworkService : NSObject, URLSessionDataDelegate {
                     let owner = element["owner"] as? [String:Any],
                     let ownerName = owner["display_name"] as? String,
                     let questionId = element["question_id"] as? Int
-                    else {return print("JSON has wrong data")}
+                else {throw NetworkErrors.invalidJSON}
                 
                 let date = NSDate(timeIntervalSince1970: dateUNIX)
                 NetworkService.questions.append(Question(questionName: title, ownerName: ownerName, date: date, answersCount: answers, questionId:  questionId))
             }
-        } catch {
-            print("error")
-            return
+        } catch let error {
+                throw error
         }
     }
     
@@ -100,15 +106,16 @@ class NetworkService : NSObject, URLSessionDataDelegate {
         dataTask.resume()
     }
     
-    private class func parseAnswersData(from data : Data){
+    private class func parseAnswersData(from data : Data) throws{
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data)
             guard let json = jsonObject as? [String:Any] else {
-                print("Invalid json")
-                return
+                throw NetworkErrors.invalidJSON
             }
             
-            guard let jsonArray = json["items"] as? [[String:Any]] else {return print("JSON has no any items")}
+            guard let jsonArray = json["items"] as? [[String:Any]] else {
+                throw NetworkErrors.invalidJSON
+            }
             answers.removeAll()
             
             for element in jsonArray.reversed(){
@@ -116,38 +123,54 @@ class NetworkService : NSObject, URLSessionDataDelegate {
                     let owner = element["owner"] as? [String:Any],
                     let ownerName = owner["display_name"] as? String,
                     let answerBody = element["body"] as? String
-                    else {return print("JSON has no data")}
+                else {throw NetworkErrors.invalidJSON}
     
                 answers.append(Answer(ownerName: ownerName, answerBody: answerBody))
             }
-        } catch {
-            print("error")
+        } catch let error {
+            throw error
         }
     }
     
-    public static func getQuestionsFromService(completition: @escaping () -> Void){
+    public static func getQuestionsFromService(completition: @escaping (Error?) -> Void){
+        var errorRecieved : Error? = nil
         getQuestionsData(completion: { result in
             switch result{
             case .success(let data):
-                parseQuestionsData(data: data)
+                do{
+                    try parseQuestionsData(from: data)
+                } catch {
+                    errorRecieved = error
+                }
             case .failure(let error):
-                print(error.localizedDescription)
+                errorRecieved = error
             }
-            completition()
+            if errorRecieved == nil{
+                completition(nil)
+            } else {
+                completition(errorRecieved)
+            }
         })
-
     }
     
-    public static func getAnswersFromService(completition: @escaping () -> Void){
+    public static func getAnswersFromService(completition: @escaping (Error?) -> Void){
+        var errorRecieved : Error? = nil
         getAnswersData(completion: { result in
             switch result{
             case .success(let data):
-                parseAnswersData(from: data)
+                do{
+                    try parseAnswersData(from: data)
+                } catch {
+                    errorRecieved = error
+                }
             case .failure(let error):
-                print(error.localizedDescription)
-                return
+                errorRecieved = error
             }
-            completition()
+            if errorRecieved == nil{
+                completition(nil)
+            } else {
+                completition(errorRecieved)
+            }
         })
     }
 }

@@ -60,7 +60,7 @@
                         <outlet property="menuView" destination="qFK-TX-MnI" id="tng-fT-cxa"/>
                         <outlet property="sideConstrait" destination="esx-E8-uGs" id="NGZ-hp-YUi"/>
                         <outlet property="tableViewContentView" destination="tVu-bB-7Qc" id="rqh-Kc-eUt"/>
-                        <segue destination="gzJ-2o-zTq" kind="show" identifier="toAnswerVC" id="kfn-Pq-mEa"/>
+                        <segue destination="gzJ-2o-zTq" kind="presentation" identifier="toAnswerVC" id="kfn-Pq-mEa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -85,14 +85,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tagCell" id="lBa-Qq-DCA" customClass="TagTableViewCell" customModule="StackOverflow" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="250" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="250" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lBa-Qq-DCA" id="yTt-2s-icC">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cs9-uS-vwn">
-                                                    <rect key="frame" x="16" y="11" width="218" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="218" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

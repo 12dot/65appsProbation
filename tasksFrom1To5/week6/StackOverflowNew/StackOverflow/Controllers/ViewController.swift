@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, CurtainViewControllerDelegate, TableViewControllerDelegatePush{
+class ViewController: UIViewController, CurtainViewControllerDelegate, TableViewControllerDelegatePush, ErrorPresentable{
     
     // MARK: - VCs to get them from class
     var tableViewController =  TableViewController()
@@ -65,13 +65,7 @@ class ViewController: UIViewController, CurtainViewControllerDelegate, TableView
         curtainConfigutaion()
         activityIndicatorConfiguration()
         
-        activityIndicator.startAnimating()
-        NetworkService.getQuestionsFromService(){
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.tableViewController.tableView.reloadData()
-            }
-        }
+        reloadQuestionsData()
     }
     
     // MARK: - Configurations
@@ -85,15 +79,25 @@ class ViewController: UIViewController, CurtainViewControllerDelegate, TableView
     // MARK: - Delegates methods from VCs
     func reloadQuestionsData() {
         activityIndicator.startAnimating()
-        NetworkService.getQuestionsFromService(){
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.tableViewController.tableView.reloadData()
+        NetworkService.getQuestionsFromService(){ result in
+            switch result{
+            case .none:
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.tableViewController.tableView.reloadData()
+                }
+            case .some(let error):
+                DispatchQueue.main.sync {
+                    self.activityIndicator.stopAnimating()
+                    self.showError(error: error)
+                }
             }
         }
-        sideConstrait.constant = leftPosition
-        UIView.animate(withDuration: animationDuration) {
-            self.view.layoutIfNeeded()
+        if sideConstrait.constant != leftPosition{
+            sideConstrait.constant = leftPosition
+            UIView.animate(withDuration: animationDuration) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
